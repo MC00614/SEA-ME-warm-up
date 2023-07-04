@@ -33,6 +33,7 @@ void PhoneBook::add(){
     person.nn = nn;
 
     PhoneBook::pblist.push_back(person);
+    return;
 }
 
 void PhoneBook::search(){
@@ -65,6 +66,7 @@ void PhoneBook::search(){
             break;
         }
     }
+    return;
 };
 
 void PhoneBook::bookmark(){
@@ -91,55 +93,31 @@ void PhoneBook::bookmark(){
 };
 
 void PhoneBook::remove(){
-    while (1){
-        std::string idx_or_pn;
-        std::cout<<"Which information do you have? (index/phone_number): ";
-        std::cin>>idx_or_pn;
+    if (PhoneBook::pblist.size()==0){
+        std::cout<<"Phonebook is Empty\n";
+        return;
+    }
 
-        if (idx_or_pn=="index"){
-            int idx =-1;
-            while(1){
-                std::cout<<"Which index do you want to remove?: ";
-                std::cin>>idx;
-
-                if(idx<=0 || idx>PhoneBook::pblist.size()){
-                    std::cout<<"Index is out of range\n";
-                }    
-                else{
-                    break;
-                }
-            }
-            idx--;
-            std::cout<<PhoneBook::pblist[idx].name<<"'s contract is Deleted\n";
-            PhoneBook::pblist.erase(PhoneBook::pblist.begin()+idx);
-            break;
-        }
-        else if (idx_or_pn=="phone_number"){
-            while (1){
-                std::string rpn;
-                std::cout<<"Which phone number do you want to remove?: ";
-                std::cin>>rpn;
-                int idx = -1;
-
-                for (int i=0;i<PhoneBook::pblist.size();i++){
-                    if (rpn==PhoneBook::pblist[i].pn){
-                        idx = i;
-                        break;
-                    }
-                }
-    
-                if (idx==-1){
-                    std::cout<<"This Phone Number is not on the list\n";
-                }
-                else{
-                    std::cout<<PhoneBook::pblist[idx].name<<"'s contract is Deleted\n";
-                    PhoneBook::pblist.erase(PhoneBook::pblist.begin()+idx);
-                    break;
-                }
-            }
-            break;
+    std::string rpn;
+    std::cout<<"Which contract do you want to remove? (Index or PhoneNumber): ";
+    std::cin>>rpn;
+    int idx = -1;
+    for (int i=0;i<PhoneBook::pblist.size();i++){
+        if (rpn==PhoneBook::pblist[i].pn){
+            std::cout<<PhoneBook::pblist[i].name<<"'s contract is Deleted\n";
+            PhoneBook::pblist.erase(PhoneBook::pblist.begin()+i);
+            return;
         }
     }
+    int ridx = std::stoi(rpn);
+    if(ridx<=0 || ridx>PhoneBook::pblist.size()){
+        std::cout<< "You typed wrong PhoneNumber or Index!\n";
+        return;
+        }    
+    ridx--;
+    std::cout<<PhoneBook::pblist[ridx].name<<"'s contract is Deleted\n";
+    PhoneBook::pblist.erase(PhoneBook::pblist.begin()+ridx);
+    return;
 };
 
 int main(){
