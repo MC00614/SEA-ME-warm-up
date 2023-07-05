@@ -50,6 +50,7 @@ Car& Car::operator=(const Car& car)
 
 void Car::drive(){
     std::cout<<make<<'\t'<<model<<'\t'<<year;
+    std::cout << "Drive function of Car class is called" << std::endl;
 }
 
 Car::~Car()
@@ -66,23 +67,26 @@ public:
     void drive();
 };
 SportsCar::SportsCar(){
-    Car();
     topspeed = 10;
+    std::cout<<"Default constructor of SportsCar with no information called"<<std::endl;
 }
 SportsCar::SportsCar(std::string make, std::string model, int year, int topspeed){
     Car(make, model, year);
     this->topspeed = topspeed;
+    std::cout<<"Default constructor of SportsCar with given information called"<<std::endl;
 }
 
 void SportsCar::drive(){
     std::cout<<this->topspeed;
     Car::drive();
+    std::cout << "Drive function of Sports Car class is called" << std::endl;
 }
 
 int main(){
     Car car0;
     SportsCar car1;
-    car1.year = 2;
-    std::cout<<car1.topspeed<<std::endl;
+    SportsCar car2 = car1;
+    SportsCar car3;
+    car3 = car2;
     return 0;
 }
