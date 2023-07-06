@@ -7,6 +7,8 @@ public:
     std::string name;
     int speed;
     void display(std::string number);
+
+    // Default Constructor
     Car(){
         this->name = "Default";
         speed = 0;
@@ -15,13 +17,16 @@ public:
         this->name = name;
         this->speed = speed;
     }
+
+    // Copy Constructor
     Car(const Car& car)
     {
         this->name = car.name;
         this->speed = car.speed;
         std::cout << "Copy constructor called" << std::endl;
     }
- 
+    
+    // Copy Assignment Operator
     Car& operator=(const Car& car)
     {
         this->name = car.name;
@@ -30,6 +35,7 @@ public:
         return *this;
     }
 
+    // Destructor
     ~Car(){
         std::cout << "Destructor called" << std::endl;
     };
