@@ -3,11 +3,12 @@
 
 class Car
 {
-public:
+protected:
     std::string make;
     std::string model;
     int year;
 
+public:
     // Default constructor
     Car() 
     : make("Default"), model("Default"), year(0) {std::cout<<"Car Default constructor"<<'\n';};
@@ -36,10 +37,11 @@ void Car::drive(){
 }
 
 class SportsCar : public Car{
-public:
+protected:
     int topspeed;
     int speed;
 
+public:
     // Default Constructor
     SportsCar()
     : Car(), topspeed(0), speed(0) {std::cout<<"SportsCar Default constructor"<<'\n';};
@@ -79,10 +81,11 @@ void SportsCar::drive(){
 
 class SUV : public Car
 {
-public:
+protected:
     int torque;
     int speed;
 
+public:
     // Default Constructor
     SUV()
     : Car(), torque(0), speed(0) {std::cout<<"SUV Default constructor"<<'\n';};
@@ -118,10 +121,11 @@ void SUV::drive(){
 
 class Trailer
 {
-public:
+protected:
     int weight;
     std::string type;
 
+public:
     // Default Constructor
     Trailer()
     : weight(100), type("Default"){std::cout<<"Trailer Default constructor"<<'\n';};
@@ -186,9 +190,11 @@ public:
     // Destructor
     ~SportsSUV() {std::cout<<"SportsSUV Destructor called"<<'\n';};
 
+    void getinformation();
     virtual void Accel(int power);
 };
 
+void SportsSUV::getinformation(){std::cout<<this->make;}
 
 void SportsSUV::Accel(int power)
 {
@@ -206,5 +212,7 @@ int main(){
     SUV suv;
     CampingCar camppingcar;
     SportsSUV sportssuv;
+    // sportssuv.name;
+    sportssuv.getinformation();
     return 0;
 }
