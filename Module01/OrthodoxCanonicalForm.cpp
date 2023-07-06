@@ -6,18 +6,18 @@ using namespace std;
  
 class Test {
 public:
-    Test() {};
-    ~Test() {};
+    Test() {cout << "Default Constructor called " << endl;};
+    ~Test() {cout << "Distructor called " << endl;};
     Test(const Test& t)
     {
         cout << "Copy constructor called " << endl;
-    }
+    };
  
     Test& operator=(const Test& t)
     {
         cout << "Assignment operator called " << endl;
         return *this;
-    }
+    };
 };
  
 // Driver code
@@ -27,7 +27,5 @@ int main()
     t2 = t1;
     Test t3 = t1;
     Test t4(t1);
-    t1
-    getchar();
     return 0;
 }
