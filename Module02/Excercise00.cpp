@@ -35,6 +35,35 @@ void Car::drive(){
     std::cout << "Drive function of Car class is called" << '\n';
 }
 
+// Circular Reference Test Class
+class shareCR
+{
+public:
+    shareCR(){std::cout<<"shareCR Default constructor"<<'\n';};
+    ~shareCR(){std::cout<<"shareCR Destructor"<<'\n';};
+    std::shared_ptr<shareCR> other;
+
+    // member function for checking Circular Reference
+    void circular_reference(std::shared_ptr<shareCR> ptr)
+    {
+        other = ptr;
+    };
+};
+
+class weakCR
+{
+public:
+    weakCR(){std::cout<<"weakCR Default constructor"<<'\n';};
+    ~weakCR(){std::cout<<"weakCR Destructor"<<'\n';};
+    std::weak_ptr<weakCR> other;
+
+    // member function for checking Circular Reference
+    void circular_reference(std::weak_ptr<weakCR> ptr)
+    {
+        other = ptr;
+    };
+};
+
 int main(){
     // 1. Unique Pointer
     // Without Variables
@@ -55,6 +84,10 @@ int main(){
     (*new1ptr).drive();
     auto new2ptr = move(new1ptr);
     (*new2ptr).drive();
+
+    std::unique_ptr<Car> uni_ptr = std::make_unique<Car>("AUDI", "A6", 2018);
+    (*uni_ptr).drive();
+    uni_ptr.reset();
     
     std::cout<<"========================================================\n";
 
@@ -107,7 +140,47 @@ int main(){
 
     std::cout<<"========================================================\n";
 
-    // 3. Shared Pointer
+    // 3. Weak Pointer
 
+    // (1) Without Weak Pointer
+    std::shared_ptr<shareCR> s_ptr1 = std::make_shared<shareCR>();
+    std::shared_ptr<shareCR> s_ptr2 = std::make_shared<shareCR>();
+    // Circular Reference
+    s_ptr1->circular_reference(s_ptr2);
+    s_ptr2->circular_reference(s_ptr1);
+
+    std::cout<<s_ptr2->other.use_count()<<'\n';
+    std::cout<<s_ptr2.use_count()<<'\n';
+
+    // Only One Reset is Possible (re-Erase Problem?)
+    // Destructor is not Called
+    s_ptr1.reset();
+    // s_ptr2.reset();
+    // s_ptr1->other.reset();
+    std::cout<<s_ptr2->other.use_count()<<'\n';
+    std::cout<<s_ptr2.use_count()<<'\n';
+
+    std::cout<<"========================================================\n";
+
+    // (2) With Weak Pointer
+    std::shared_ptr<weakCR> s_ptr3 = std::make_shared<weakCR>();
+    std::shared_ptr<weakCR> s_ptr4 = std::make_shared<weakCR>();
+    // Circular Reference
+    s_ptr3->circular_reference(s_ptr4);
+    s_ptr4->circular_reference(s_ptr3);
+
+    std::cout<<s_ptr4->other.use_count()<<'\n';
+    std::cout<<s_ptr4.use_count()<<'\n';
+
+    // All Reset is Possible (no circular reference problem)
+    s_ptr3->other.reset();
+    // Destructor is Called
+    s_ptr3.reset();
+    std::cout<<s_ptr4->other.use_count()<<'\n';
+    std::cout<<s_ptr4.use_count()<<'\n';
+    // Destructor is Called
+    s_ptr4.reset();
+    
+    std::cout<<"========================================================\n";
     return 0;
 }
