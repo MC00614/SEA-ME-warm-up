@@ -1,16 +1,20 @@
 #include <iostream>
 #include <cmath>
 
+// Abstract Class (Cannot be declared this class as objects)
 class Car
 {
+// protected access specifier
 protected:
+    // member variable 
     std::string make;
     std::string model;
     int year;
 
+// public access specifier
 public:
     // Default constructor
-    Car() 
+    Car()
     : make("Default"), model("Default"), year(0) {std::cout<<"Car Default constructor"<<'\n';};
     Car(std::string make, std::string model, int year) 
     : make(make), model(model), year(year) {{std::cout<<"Car Default constructor"<<'\n';}};
@@ -24,23 +28,28 @@ public:
 
     // Destructor
     ~Car(){std::cout<<"Car Destructor called"<<'\n';};
-
-    void drive();
-
+    
+    // Abstraction (virtual member function)
     virtual void Accel(int power)=0;
     
+    // member function
+    void drive();
 };
 
+// Define member function
 void Car::drive(){
     std::cout<<make<<'\t'<<model<<'\t'<<year<<'\n';
     std::cout << "Drive function of Car class is called" << '\n';
 }
 
+// Child 1 (By Inheritance)
 class SportsCar : public Car{
+// protected access specifier
 protected:
     int topspeed;
     int speed;
 
+// public access specifier
 public:
     // Default Constructor
     SportsCar()
@@ -58,10 +67,14 @@ public:
     // Destructor
     ~SportsCar(){std::cout<<"SportsCar Destructor called"<<'\n';};
 
+    // Abstraction (virtual member function)
     virtual void Accel(int power);
+
+    // member function
     void drive();
 };
 
+// re-Define virtual member fuction
 void SportsCar::Accel(int power)
 {
     speed = power + sin(power);
@@ -73,18 +86,22 @@ void SportsCar::Accel(int power)
     std::cout<<"Speed is now"<<speed<<'\n';
 }
 
+// Define member function (by using parent's member function)
 void SportsCar::drive(){
     std::cout<<topspeed<<'\t';
     Car::drive();
     std::cout << "SportsCar Drive function\n";
 }
 
+// Child 2 (By Inheritance)
 class SUV : public Car
 {
+// protected access specifier
 protected:
     int torque;
     int speed;
 
+// public access specifier
 public:
     // Default Constructor
     SUV()
@@ -102,10 +119,14 @@ public:
     // Destructor
     ~SUV(){std::cout<<"SUV Destructor called"<<'\n';};
 
+    // Abstraction (virtual member function)
     virtual void Accel(int power);
+
+    // member function
     void drive();
 };
 
+// re-Define virtual member fuction
 void SUV::Accel(int power)
 {
     speed = 0.5*power + 2*sin(power);
@@ -113,12 +134,14 @@ void SUV::Accel(int power)
     std::cout<<"Speed is now "<<speed<<'\n';
 }
 
+// Define member function (by using parent's member function)
 void SUV::drive(){
     std::cout<<torque<<'\t';
     Car::drive();
     std::cout << "SUV Drive function\n";
 }
 
+// Simple Class
 class Trailer
 {
 protected:
@@ -164,19 +187,25 @@ public:
 
 };
 
+// Collaborate Two Class (SportsCar, SUV) which is from Same Parent Calss (Car).
 class SportsSUV : public Car
 {
+// protected access specifier
 protected:
+    // Declare member variables as Object(not Declaring, just Calling)
     SportsCar S_car;
     SUV SUV_car;
+// public access specifier
 public:
+    // Parent (Car) does not have this variables 
     int topspeed;
     int torque;
     int speed;
 
     // Default Constructor
+    // Call Constructor of Car, S_car, SUV_car
     SportsSUV()
-    : Car(), S_car(make, model, year, topspeed=0, speed=0), SUV_car(make, model, year, torque=0, speed=0) {std::cout<<"SportsSUV Default constructor"<<'\n';};
+    : Car(), S_car(), SUV_car() {std::cout<<"SportsSUV Default constructor"<<'\n';};
     SportsSUV(std::string make, std::string model, int year, int topspeed, int torque, int speed)
     : Car(make, model, year), S_car(make, model, year, topspeed, speed), SUV_car(make, model, year, torque, speed) {std::cout<<"SportsSUV Default constructor"<<'\n';};
 
@@ -190,12 +219,17 @@ public:
     // Destructor
     ~SportsSUV() {std::cout<<"SportsSUV Destructor called"<<'\n';};
 
+    // For solving encalsulation (member function)
     void getinformation();
+
+    // Abstraction (virtual member function)
     virtual void Accel(int power);
 };
 
-void SportsSUV::getinformation(){std::cout<<this->make;}
+// Define member function
+void SportsSUV::getinformation(){std::cout<<make<<'\n';}
 
+// re-Define virtual member fuction
 void SportsSUV::Accel(int power)
 {
     speed = 0.75*power + 1.25*sin(power);
