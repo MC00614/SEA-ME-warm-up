@@ -1,68 +1,8 @@
+#include "Car.h"
+#include "ShareCR.h"
+#include "WeakCR.h"
 #include <iostream>
 #include <memory>
-
-class Car
-{
-// public access specifier
-public:
-    // member variable 
-    std::string make;
-    std::string model;
-    int year;
-    // Default constructor
-    Car()
-    : make("Default"), model("Default"), year(0) {std::cout<<"Car Default constructor"<<'\n';};
-    Car(std::string make, std::string model, int year) 
-    : make(make), model(model), year(year) {{std::cout<<"Car Default constructor"<<'\n';}};
-
-    // Copy constructor
-    Car(const Car& car)
-    : make(car.make), model(car.model), year(car.year) {std::cout << "Car Copy constructor" << '\n';};
-
-    // Copy Assignment Operator
-    Car& operator=(const Car& car) {std::cout << "Car Copy Assignmnet Operator" << '\n'; return *this = car;};
-
-    // Destructor
-    ~Car(){std::cout<<"Car Destructor called"<<'\n';};
-    
-    // member function
-    void drive();
-};
-
-// Define member function
-void Car::drive(){
-    std::cout<<make<<'\t'<<model<<'\t'<<year<<'\n';
-    std::cout << "Drive function of Car class is called" << '\n';
-}
-
-// Circular Reference Test Class
-class shareCR
-{
-public:
-    shareCR(){std::cout<<"shareCR Default constructor"<<'\n';};
-    ~shareCR(){std::cout<<"shareCR Destructor"<<'\n';};
-    std::shared_ptr<shareCR> other;
-
-    // member function for checking Circular Reference
-    void circular_reference(std::shared_ptr<shareCR> ptr)
-    {
-        other = ptr;
-    };
-};
-
-class weakCR
-{
-public:
-    weakCR(){std::cout<<"weakCR Default constructor"<<'\n';};
-    ~weakCR(){std::cout<<"weakCR Destructor"<<'\n';};
-    std::weak_ptr<weakCR> other;
-
-    // member function for checking Circular Reference
-    void circular_reference(std::weak_ptr<weakCR> ptr)
-    {
-        other = ptr;
-    };
-};
 
 int main(){
     // 1. Unique Pointer
@@ -143,8 +83,8 @@ int main(){
     // 3. Weak Pointer
 
     // (1) Without Weak Pointer
-    std::shared_ptr<shareCR> s_ptr1 = std::make_shared<shareCR>();
-    std::shared_ptr<shareCR> s_ptr2 = std::make_shared<shareCR>();
+    std::shared_ptr<ShareCR> s_ptr1 = std::make_shared<ShareCR>();
+    std::shared_ptr<ShareCR> s_ptr2 = std::make_shared<ShareCR>();
     // Circular Reference
     s_ptr1->circular_reference(s_ptr2);
     s_ptr2->circular_reference(s_ptr1);
@@ -163,8 +103,8 @@ int main(){
     std::cout<<"========================================================\n";
 
     // (2) With Weak Pointer
-    std::shared_ptr<weakCR> s_ptr3 = std::make_shared<weakCR>();
-    std::shared_ptr<weakCR> s_ptr4 = std::make_shared<weakCR>();
+    std::shared_ptr<WeakCR> s_ptr3 = std::make_shared<WeakCR>();
+    std::shared_ptr<WeakCR> s_ptr4 = std::make_shared<WeakCR>();
     // Circular Reference
     s_ptr3->circular_reference(s_ptr4);
     s_ptr4->circular_reference(s_ptr3);
