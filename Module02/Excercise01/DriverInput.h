@@ -3,7 +3,7 @@
 class DriverInput : public Status
 {
 public:
-    DriverInput();
+    DriverInput(int *speed_ptr, int *heading_angle_ptr, int *location_ptr, int *steering_angle_ptr);
     ~DriverInput();
 
     void Driver_SteeringAngle(int driver_steering_angle);

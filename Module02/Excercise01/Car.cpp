@@ -1,40 +1,17 @@
 #include "Car.h"
 #include <iostream>
 
-Car::Car()
+Car::Car() : Status()
 {   
-    Status();
-    driverinput = new DriverInput();
-    lkas = new LKAS();
-
-    lkas->speed = this->speed;
-    driverinput->speed = this->speed;
+    driverinput = new DriverInput(speed_ptr, heading_angle_ptr, location_ptr, steering_angle_ptr);
+    lkas = new LKAS(speed_ptr, heading_angle_ptr, location_ptr, steering_angle_ptr);
 
     std::cout<<"Car Constructor\n";
 };
 
 Car::~Car()
 {
-    delete (DriverInput*) driverinput;
-    delete (LKAS*) lkas;
+    delete driverinput;
+    delete lkas;
     std::cout<<"Car Destructor\n";
 };
-
-// void Car::update_info()
-// {
-//     driverinput->speed = this->speed;
-//     lkas->speed = this->speed;
-
-
-//     driverinput-> = this->speed;
-//     lkas->speed = this->speed;
-
-//     driverinput->speed = this->speed;
-//     lkas->speed = this->speed;
-
-//     driverinput->speed = this->speed;
-//     lkas->speed = this->speed;
-//     std::cout<<driverinput->speed;
-//     std::cout<<lkas->speed;
-//     std::cout<<this->speed;
-// }

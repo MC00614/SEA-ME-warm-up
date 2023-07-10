@@ -4,7 +4,7 @@
 class LKAS : public Status
 {
 public:
-    LKAS();
+    LKAS(int *speed_ptr, int *heading_angle_ptr, int *location_ptr, int *steering_angle_ptr);
     ~LKAS();
 
     void LKAS_SteeringAngle(int lkas_steering_angle);

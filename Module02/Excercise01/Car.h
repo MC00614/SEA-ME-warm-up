@@ -5,14 +5,9 @@
 
 class Car : public Status
 {
-// private:
-//     Status *driverinput;
-//     Status *lkas;
 public:
-    Status *driverinput;
-    Status *lkas;
+    DriverInput *driverinput;
+    LKAS *lkas;
     Car();
-    ~Car();
-
-    void update_info();
+    ~Car(); 
 };
