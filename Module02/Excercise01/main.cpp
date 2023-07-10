@@ -1,13 +1,15 @@
-#include "Part.h"
-#include "Engine.h"
-#include "Wheel.h"
-#include "Brake.h"
-#include "Transmission.h"
+#include "Status.h"
+#include "DriverInput.h"
+#include "LKAS.h"
 #include "Car.h"
-#include <iostream>
+#include "iostream"
 
-int main() {
-    Car myCar;
-    myCar.printParts();
+int main()
+{
+    Car Ferrari;
+    // (*(Ferrari.speed)) = 1;
+    // std::cout<<Ferrari.speed;
+
+    // std::cout<<Ferrari.lkas->speed;
     return 0;
 }

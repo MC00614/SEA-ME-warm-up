@@ -1,18 +1,18 @@
 #pragma once
-#include "Engine.h"
-#include "Wheel.h"
-#include "Brake.h"
-#include "Transmission.h"
+#include "Status.h"
+#include "DriverInput.h"
+#include "LKAS.h"
 
-class Car {
+class Car : public Status
+{
+// private:
+//     Status *driverinput;
+//     Status *lkas;
 public:
+    Status *driverinput;
+    Status *lkas;
     Car();
-    void printParts();
     ~Car();
-    
-private:
-    Engine* engine_;
-    Wheel* wheels_;
-    Brake* brakes_;
-    Transmission* transmission_;
+
+    void update_info();
 };

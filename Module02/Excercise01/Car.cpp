@@ -1,24 +1,40 @@
 #include "Car.h"
+#include <iostream>
 
-Car::Car() {
-    engine_ = new Engine();
-    wheels_ = new Wheel[4];
-    brakes_ = new Brake[4];
-    transmission_ = new Transmission();
-}
+Car::Car()
+{   
+    Status();
+    driverinput = new DriverInput();
+    lkas = new LKAS();
 
-void Car::printParts() {
-    engine_->print();
-    for (int i = 0; i < 4; ++i) {
-        wheels_[i].print();
-        brakes_[i].print();
-    }
-    transmission_->print();
-}
+    lkas->speed = this->speed;
+    driverinput->speed = this->speed;
 
-Car::~Car() {
-    delete engine_;
-    delete [] wheels_;
-    delete [] brakes_;
-    delete transmission_;
-}
+    std::cout<<"Car Constructor\n";
+};
+
+Car::~Car()
+{
+    delete (DriverInput*) driverinput;
+    delete (LKAS*) lkas;
+    std::cout<<"Car Destructor\n";
+};
+
+// void Car::update_info()
+// {
+//     driverinput->speed = this->speed;
+//     lkas->speed = this->speed;
+
+
+//     driverinput-> = this->speed;
+//     lkas->speed = this->speed;
+
+//     driverinput->speed = this->speed;
+//     lkas->speed = this->speed;
+
+//     driverinput->speed = this->speed;
+//     lkas->speed = this->speed;
+//     std::cout<<driverinput->speed;
+//     std::cout<<lkas->speed;
+//     std::cout<<this->speed;
+// }
