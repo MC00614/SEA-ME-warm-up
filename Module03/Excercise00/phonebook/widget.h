@@ -21,14 +21,24 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-    enum Mode {Initial, Old};
+    enum Mode {Initial, Old, Show};
 
 public slots:
     void addContact();
+    void searchContact();
+    void refreshContact();
+    void removeContact();
+    void cancelContact();
 
 private:
+    int search_index;
+
     QPushButton *addButton;
-    QPushButton *submitButton;
+    QPushButton *searchButton;
+    QPushButton *refreshButton;
+
+    QPushButton *removeButton;
+    QPushButton *bookmarkButton;
     QPushButton *cancelButton;
 
     QLineEdit *nameLine;
@@ -42,7 +52,6 @@ private:
     QString oldaddress;
 
     PhoneBook phonebook;
-
     void UpdateInterface(Mode mode);
     Mode CurrentMode;
 

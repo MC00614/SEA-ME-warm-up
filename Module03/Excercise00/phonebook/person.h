@@ -8,7 +8,6 @@ class Person
 public:
     Person(QString name, QString phone, QString email, QString address, bool bookmark);
     ~Person();
-
     QString name;
     QString phone;
     QString email;

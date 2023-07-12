@@ -22,12 +22,33 @@ Widget::Widget(QWidget *parent)
     addressText = new QTextEdit;
     addressText->setReadOnly(false);
 
+    refreshButton = new QPushButton(tr("&REFRESH"));
     addButton = new QPushButton(tr("&ADD"));
+    searchButton = new QPushButton(tr("&SEARCH"));
+    searchButton->setEnabled(false);
+    removeButton = new QPushButton(tr("&REMOVE"));
+    removeButton->hide();
+    bookmarkButton = new QPushButton(tr("&BOOKMARK"));
+    bookmarkButton->hide();
+    cancelButton = new QPushButton(tr("&CANCEL"));
+    cancelButton->hide();
 
     connect(addButton, SIGNAL(clicked()), this, SLOT(addContact()));
+    connect(searchButton, SIGNAL(clicked()), this, SLOT(searchContact()));
+    connect(refreshButton, SIGNAL(clicked()), this, SLOT(refreshContact()));
+    connect(removeButton, SIGNAL(clicked()), this, SLOT(removeContact()));
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelContact()));
 
     QVBoxLayout *buttonLayout1 = new QVBoxLayout;
+    buttonLayout1->addWidget(refreshButton);
     buttonLayout1->addWidget(addButton);
+    buttonLayout1->addWidget(searchButton);
+    buttonLayout1->addStretch();
+
+    QVBoxLayout *buttonLayout2 = new QVBoxLayout;
+    buttonLayout2->addWidget(removeButton);
+    buttonLayout2->addWidget(bookmarkButton);
+    buttonLayout2->addWidget(cancelButton);
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(nameLabel,0,0);
@@ -36,10 +57,11 @@ Widget::Widget(QWidget *parent)
     mainLayout->addWidget(addressLabel,3,0,Qt::AlignTop);
     mainLayout->addWidget(nameLine,0,1);
     mainLayout->addWidget(phoneLine,1,1);
-    mainLayout->addWidget(emailLine,2,1);
+    mainLayout->addWidget(emailLine,2,1,Qt::AlignTop);
     mainLayout->addWidget(addressText,3,1);
 
-    mainLayout->addLayout(buttonLayout1,1,2);
+    mainLayout->addLayout(buttonLayout1,3,2);
+    mainLayout->addLayout(buttonLayout2,4,2);
 
     setLayout(mainLayout);
     setWindowTitle(tr("Phone Book Program"));
@@ -57,63 +79,83 @@ void Widget::addContact()
     oldemail = emailLine->text();
     oldaddress = addressText->toPlainText();
 
-    bool addCheck = true;
+    if (oldname.isEmpty()) {
+       QMessageBox::information(this, tr("Empty Name"),
+           tr("Please enter a Name"));
+       return;
+    }
 
     if(phonebook.is_name_in_list(oldname))
     {
-        addCheck = false;
-        int button = QMessageBox::question(this,
+        QMessageBox::information(this,
             tr("Confirm Addition"),
-            tr("Name : \"%1\" is already in PhoneBook. \n Are you sure?").arg(oldname),
-            QMessageBox::Yes | QMessageBox::No);
-        if (button == QMessageBox::No) {UpdateInterface(Old); return;}
-        else addCheck = true;
+            tr("Name : %1 is already in PhoneBook.").arg(oldname));
+        UpdateInterface(Old);
+        return;
     }
 
-    if (phonebook.is_phone_in_list(oldphone))
+    Person person(oldname, oldphone, oldemail, oldaddress, false);
+    phonebook.add(person);
+    QMessageBox::information(this, tr("Add Successful"),
+    tr("Name : %1\nPhone Number : %2\nEmail : %3\nAddress : %4\nhas been added to your Phone Book.").arg(oldname,oldphone,oldemail,oldaddress));
+
+    UpdateInterface(Initial);
+}
+
+void Widget::searchContact()
+{
+    oldname = nameLine->text();
+    oldphone = phoneLine->text();
+    oldemail = emailLine->text();
+    oldaddress = addressText->toPlainText();
+
+    if (oldname.isEmpty())
     {
-        addCheck = false;
-        int button = QMessageBox::question(this,
-            tr("Confirm Addition"),
-            tr("Phone Number : \"%1\" is already in PhoneBook. \n Are you sure?").arg(oldphone),
-            QMessageBox::Yes | QMessageBox::No);
-
-        if (button == QMessageBox::No){UpdateInterface(Old);return;}
-        else addCheck = true;
+        QMessageBox::information(this,
+        tr("Search Error"),
+        tr("Name is Empty.\nType Something!"));
+        return;
     }
 
-
-    if (phonebook.is_email_in_list(oldemail))
-    {
-        addCheck = false;
-        int button = QMessageBox::question(this,
-            tr("Confirm Addition"),
-            tr("Email : \"%1\" is already in PhoneBook. \n Are you sure?").arg(oldemail),
-            QMessageBox::Yes | QMessageBox::No);
-
-        if (button == QMessageBox::No){UpdateInterface(Old);return;}
-        else addCheck = true;
+    search_index = phonebook.search(oldname);
+    if (search_index==-1){
+        QMessageBox::information(this,
+        tr("Search Error"),
+        tr("Name : %1 is not in PhoneBook.").arg(oldname));
     }
-
-    if (phonebook.is_address_in_list(oldaddress))
-    {
-        addCheck = false;
-        int button = QMessageBox::question(this,
-            tr("Confirm Addition"),
-            tr("Address : \"%1\" is already in PhoneBook. \n Are you sure?").arg(oldaddress),
-            QMessageBox::Yes | QMessageBox::No);
-
-        if (button == QMessageBox::No){UpdateInterface(Old);return;}
-        else addCheck = true;
+    else {
+        Person found_person = phonebook.index_search(search_index);
+        nameLine->setText(found_person.name);
+        phoneLine->setText(found_person.phone);
+        emailLine->setText(found_person.email);
+        addressText->setText(found_person.address);
+        UpdateInterface(Show);
     }
+}
 
-    if (addCheck){
-        Person person(oldname, oldphone, oldemail, oldaddress, false);
-        phonebook.add(person);
-        QMessageBox::information(this, tr("Add Successful"),
-        tr("Name : %1\nPhone Number : %2\nEmail : %3\nAddress : %4\nhas been added to your Phone Book.").arg(oldname,oldphone,oldemail,oldaddress));
-    }
+void Widget::refreshContact()
+{
+    UpdateInterface(Initial);
+}
 
+void Widget::removeContact()
+{
+    oldname = nameLine->text();
+    oldphone = phoneLine->text();
+    oldemail = emailLine->text();
+    oldaddress = addressText->toPlainText();
+
+    int button = QMessageBox::question(this,
+        tr("Confirm Remove"),
+        tr("Name : \"%1\" will be removed. \nAre you sure?").arg(oldname),
+        QMessageBox::Yes | QMessageBox::No);
+
+    if (button == QMessageBox::No) return;
+    else {phonebook.remove(search_index); UpdateInterface(Initial);}
+}
+
+void Widget::cancelContact()
+{
     UpdateInterface(Initial);
 }
 
@@ -123,10 +165,21 @@ void Widget::UpdateInterface(Mode mode)
     switch (CurrentMode)
     {
         case Initial:
+            nameLine->setReadOnly(false);
+            phoneLine->setReadOnly(false);
+            emailLine->setReadOnly(false);
+            addressText->setReadOnly(false);
+
             nameLine->clear();
             phoneLine->clear();
             emailLine->clear();
             addressText->clear();
+
+            refreshButton->setEnabled(true);
+            addButton->setEnabled(true);
+            searchButton->setEnabled(phonebook.size()>=2);
+            removeButton->hide();
+            cancelButton->hide();
             break;
 
         case Old:
@@ -135,6 +188,20 @@ void Widget::UpdateInterface(Mode mode)
             emailLine->setText(oldemail);
             addressText->setText(oldaddress);
             break;
+
+        case Show:
+            nameLine->setReadOnly(true);
+            phoneLine->setReadOnly(true);
+            emailLine->setReadOnly(true);
+            addressText->setReadOnly(true);
+
+            refreshButton->setEnabled(false);
+            addButton->setEnabled(false);
+            searchButton->setEnabled(false);
+            removeButton->show();
+            cancelButton->show();
+            break;
+
     }
 }
 
