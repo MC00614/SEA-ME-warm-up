@@ -11,6 +11,7 @@ class QLabel;
 class QLineEdit;
 class QTextEdit;
 class QPushButton;
+class QTableWidget;
 QT_END_NAMESPACE
 
 class Widget : public QWidget
@@ -21,7 +22,7 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-    enum Mode {Initial, Old, Show};
+    enum Mode {Initial, Old, Show, addTable};
 
 public slots:
     void addContact();
@@ -29,6 +30,9 @@ public slots:
     void refreshContact();
     void removeContact();
     void cancelContact();
+    void bookmarkContact();
+    void loadContact();
+    void saveContact();
 
 private:
     int search_index;
@@ -40,6 +44,9 @@ private:
     QPushButton *removeButton;
     QPushButton *bookmarkButton;
     QPushButton *cancelButton;
+
+    QPushButton *loadButton;
+    QPushButton *saveButton;
 
     QLineEdit *nameLine;
     QLineEdit *phoneLine;
@@ -54,6 +61,10 @@ private:
     PhoneBook phonebook;
     void UpdateInterface(Mode mode);
     Mode CurrentMode;
+
+
+
+    QTableWidget *maintable;
 
     Ui::Widget *ui;
 

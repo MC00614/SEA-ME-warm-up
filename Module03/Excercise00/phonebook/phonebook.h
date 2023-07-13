@@ -22,11 +22,10 @@ public:
     int search(QString oldname);
     Person index_search(int index);
     void remove(int index);
-    void bookmark();
+    void bookmark(int index);
+    bool is_bookmarked(int index);
 
-
-private:
-    std::vector<Person> PB;
+    QVector<Person> PB;
 };
 
 #endif // PHONEBOOK_H

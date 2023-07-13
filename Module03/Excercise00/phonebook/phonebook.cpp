@@ -64,3 +64,18 @@ void PhoneBook::remove(int index)
 {
     PB.erase(PB.begin()+index);
 }
+
+void PhoneBook::bookmark(int index)
+{
+    PB[index].bookmark = true;
+}
+
+bool PhoneBook::is_bookmarked(int index)
+{
+    if (PB[index].bookmark){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
