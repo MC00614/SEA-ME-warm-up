@@ -6,6 +6,8 @@ class Car
 {
 public:
     Car();
+    int x_location;
+    int y_location;
 };
 
 #endif // CAR_H

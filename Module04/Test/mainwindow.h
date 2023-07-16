@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
+#include "game.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,6 +16,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    game test_game;
+    virtual void keyPressEvent(QKeyEvent *event) override;
+//    virtual void keyReleaseEvent(QKeyEvent *event) override;
+public slots:
+    void update();
 
 private:
     Ui::MainWindow *ui;
