@@ -41,3 +41,6 @@ DISTFILES += \
     images/car2.png \
     images/car3.png \
     images/car4.png
+
+RESOURCES += \
+    Resources.qrc

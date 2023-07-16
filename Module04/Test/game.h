@@ -12,7 +12,7 @@ class game : public QGraphicsScene
 public:
     game();
     QTimer* m_timer;
-    Car car0;
+    Car car[2];
 };
 
 #endif // GAME_H
