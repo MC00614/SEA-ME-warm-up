@@ -31,6 +31,13 @@ void PhoneBook::add(){
     person.name = name;
     person.pn = pn;
     person.nn = nn;
+    
+    for (int i=0;i<pblist.size();i++){
+        if (pblist[i].pn==pn) {
+            std::cout << "Phone Number is alrady in Phone Book\n";
+            return;
+        }
+    }
 
     PhoneBook::pblist.push_back(person);
     return;
@@ -46,9 +53,21 @@ void PhoneBook::search(){
         std::cout << (i+1) << '\t'  << PhoneBook::pblist[i].name << '\n';
     }
 
-    int idx;
+    char ch_idx;
     std::cout<<"Choose index of contract: ";
-    std::cin>>idx;
+    std::cin>>ch_idx;
+
+    if (!isdigit(ch_idx)){
+        std::cout<<"Not Index Number\n";
+        return;
+    }
+
+    int idx = ch_idx-48;
+    if (idx>PhoneBook::pblist.size() || idx <= 0){
+        std::cout<<"Out of Index\n";
+        return;
+    }
+
     idx--;
     std::cout << PhoneBook::pblist[idx].name << ' ' << PhoneBook::pblist[idx].pn << ' ' <<PhoneBook::pblist[idx].nn << '\n';
 
@@ -109,6 +128,15 @@ void PhoneBook::remove(){
             return;
         }
     }
+
+    char chars[rpn.length() + 1];
+    rpn.copy(chars, rpn.length() + 1);
+
+    if (!isdigit(*chars)){
+        std::cout<<"Not Number\n";
+        return;
+    }
+
     int ridx = std::stoi(rpn);
     if(ridx<=0 || ridx>PhoneBook::pblist.size()){
         std::cout<< "You typed wrong PhoneNumber or Index!\n";
@@ -127,6 +155,7 @@ int main(){
         std::cout << "Choose function (ADD/SEARCH/BOOKMARK/REMOVE/EXIT): ";
         std::string fname;
         std::cin >> fname;
+        getchar();
         
         if (fname=="ADD"){
             phonebook.add();

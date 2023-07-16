@@ -218,6 +218,7 @@ void Widget::loadContact()
         } else {
             Person temp_person = phonebook.index_search(0);
             UpdateInterface(Initial);
+            UpdateInterface(addTable);
         }
     }
 }
