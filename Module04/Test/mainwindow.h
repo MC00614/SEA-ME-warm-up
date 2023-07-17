@@ -23,12 +23,13 @@ public:
     virtual void keyReleaseEvent(QKeyEvent *event) override;
     int CAR_count = 2;
     QLabel *CAR_ptr[2];
-    bool keys[2][4] = {false};
 
 public slots:
-    void update();
+    void gui_update();
+    void start();
 
 private:
+    float CAR_ang[2];
     QPixmap CAR_img[2];
     QTransform CAR_rot[2];
 

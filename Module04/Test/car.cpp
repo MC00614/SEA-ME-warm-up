@@ -9,14 +9,25 @@ Car::Car()
     angle = 90;
     speed = 0;
     max_speed = 5;
-//    angle_factor = 1;
-//    speed_factor = 0.1;
 }
+
+Car::~Car(){}
 
 void Car::update(bool keys[4])
 {
-    if (keys[0]) change_Speed(0.1);
-    if (keys[2]) change_Speed(-0.1);
+    if (keys[0])
+    {
+        change_Speed(0.1);
+    }
+    else if (keys[2])
+    {
+        change_Speed(-0.1);
+    }
+    else
+    {
+        setSpeed(speed*0.95);
+    }
+
     if (keys[1])
     {
         change_Angle(2);
@@ -31,9 +42,11 @@ void Car::update(bool keys[4])
     {
         changed_angle_in_this_period = 0;
     }
+    //    Just use as signal
+    emit positionChanged();
 }
 
-void Car::run()
+void Car::move()
 {
 //    Calculate location(x,y)
     x += speed*cos(angle*rad2deg);

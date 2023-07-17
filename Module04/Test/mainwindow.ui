@@ -72,10 +72,16 @@ color : red;</string>
     <property name="title">
      <string>Setting</string>
     </property>
+    <addaction name="actionSTART"/>
    </widget>
    <addaction name="menuSetting"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSTART">
+   <property name="text">
+    <string>START</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -53,16 +53,22 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Test/car.cpp \
+		../Test/carthread.cpp \
 		../Test/game.cpp \
 		../Test/main.cpp \
 		../Test/mainwindow.cpp qrc_Resources.cpp \
+		moc_car.cpp \
+		moc_carthread.cpp \
 		moc_game.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = car.o \
+		carthread.o \
 		game.o \
 		main.o \
 		mainwindow.o \
 		qrc_Resources.o \
+		moc_car.o \
+		moc_carthread.o \
 		moc_game.o \
 		moc_mainwindow.o
 DIST          = ../Test/images/bg.png \
@@ -162,8 +168,10 @@ DIST          = ../Test/images/bg.png \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../Test/Test.pro ../Test/car.h \
+		../Test/carthread.h \
 		../Test/game.h \
 		../Test/mainwindow.h ../Test/car.cpp \
+		../Test/carthread.cpp \
 		../Test/game.cpp \
 		../Test/main.cpp \
 		../Test/mainwindow.cpp
@@ -379,8 +387,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Test/Resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Test/car.h ../Test/game.h ../Test/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Test/car.cpp ../Test/game.cpp ../Test/main.cpp ../Test/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Test/car.h ../Test/carthread.h ../Test/game.h ../Test/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Test/car.cpp ../Test/carthread.cpp ../Test/game.cpp ../Test/main.cpp ../Test/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Test/mainwindow.ui $(DISTDIR)/
 
 
@@ -424,11 +432,23 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_game.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_car.cpp moc_carthread.cpp moc_game.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_game.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_car.cpp moc_carthread.cpp moc_game.cpp moc_mainwindow.cpp
+moc_car.cpp: ../Test/car.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mczb/SEAME/SEA-ME-warm-up/Module04/build-Test-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mczb/SEAME/SEA-ME-warm-up/Module04/Test -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Test/car.h -o moc_car.cpp
+
+moc_carthread.cpp: ../Test/carthread.h \
+		../Test/car.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mczb/SEAME/SEA-ME-warm-up/Module04/build-Test-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mczb/SEAME/SEA-ME-warm-up/Module04/Test -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Test/carthread.h -o moc_carthread.cpp
+
 moc_game.cpp: ../Test/game.h \
 		../Test/car.h \
+		../Test/carthread.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mczb/SEAME/SEA-ME-warm-up/Module04/build-Test-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mczb/SEAME/SEA-ME-warm-up/Module04/Test -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Test/game.h -o moc_game.cpp
@@ -436,6 +456,7 @@ moc_game.cpp: ../Test/game.h \
 moc_mainwindow.cpp: ../Test/mainwindow.h \
 		../Test/game.h \
 		../Test/car.h \
+		../Test/carthread.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mczb/SEAME/SEA-ME-warm-up/Module04/build-Test-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mczb/SEAME/SEA-ME-warm-up/Module04/Test -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Test/mainwindow.h -o moc_mainwindow.cpp
@@ -464,23 +485,36 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 car.o: ../Test/car.cpp ../Test/car.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o car.o ../Test/car.cpp
 
-game.o: ../Test/game.cpp ../Test/game.h \
+carthread.o: ../Test/carthread.cpp ../Test/carthread.h \
 		../Test/car.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o carthread.o ../Test/carthread.cpp
+
+game.o: ../Test/game.cpp ../Test/game.h \
+		../Test/car.h \
+		../Test/carthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game.o ../Test/game.cpp
 
 main.o: ../Test/main.cpp ../Test/mainwindow.h \
 		../Test/game.h \
-		../Test/car.h
+		../Test/car.h \
+		../Test/carthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Test/main.cpp
 
 mainwindow.o: ../Test/mainwindow.cpp ../Test/mainwindow.h \
 		../Test/game.h \
 		../Test/car.h \
+		../Test/carthread.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Test/mainwindow.cpp
 
 qrc_Resources.o: qrc_Resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_Resources.o qrc_Resources.cpp
+
+moc_car.o: moc_car.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_car.o moc_car.cpp
+
+moc_carthread.o: moc_carthread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_carthread.o moc_carthread.cpp
 
 moc_game.o: moc_game.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_game.o moc_game.cpp

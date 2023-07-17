@@ -17,12 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     car.cpp \
+    carthread.cpp \
     game.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     car.h \
+    carthread.h \
     game.h \
     mainwindow.h
 

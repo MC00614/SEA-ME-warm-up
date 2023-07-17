@@ -3,12 +3,18 @@
 
 #include <vector>
 
-class Car
+#include <QObject>
+#include <QWidget>
+
+class Car : public QObject
 {
+    Q_OBJECT
 public:
     Car();
+    ~Car();
+
     void update(bool keys[4]);
-    void run();
+    void move();
 
     void change_Angle(float addition_angle);
     void change_Speed(float addition_speed);
@@ -21,6 +27,8 @@ public:
     float getSpeed();
     float getX();
     float getY();
+signals:
+    void positionChanged();
 
 private:
 //    Caution with Variable Type!!
@@ -30,6 +38,7 @@ private:
     float speed;
     float changed_angle_in_this_period;
     float max_speed;
+
 };
 
 #endif // CAR_H

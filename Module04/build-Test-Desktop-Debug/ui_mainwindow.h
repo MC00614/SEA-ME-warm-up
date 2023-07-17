@@ -24,6 +24,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionSTART;
     QWidget *centralwidget;
     QLabel *CAR0;
     QLabel *CAR1;
@@ -40,6 +41,8 @@ public:
 "border: 0px \n"
 ""));
         MainWindow->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        actionSTART = new QAction(MainWindow);
+        actionSTART->setObjectName(QString::fromUtf8("actionSTART"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         CAR0 = new QLabel(centralwidget);
@@ -66,6 +69,7 @@ public:
         MainWindow->setStatusBar(statusbar);
 
         menubar->addAction(menuSetting->menuAction());
+        menuSetting->addAction(actionSTART);
 
         retranslateUi(MainWindow);
 
@@ -75,6 +79,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        actionSTART->setText(QApplication::translate("MainWindow", "START", nullptr));
         CAR0->setText(QApplication::translate("MainWindow", "CAR0", nullptr));
         CAR1->setText(QApplication::translate("MainWindow", "CAR1", nullptr));
         menuSetting->setTitle(QApplication::translate("MainWindow", "Setting", nullptr));
