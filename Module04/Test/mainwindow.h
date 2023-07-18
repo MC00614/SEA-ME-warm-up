@@ -21,8 +21,8 @@ public:
     game test_game;
     virtual void keyPressEvent(QKeyEvent *event) override;
     virtual void keyReleaseEvent(QKeyEvent *event) override;
-    int CAR_count = 4;
-    QLabel *CAR_ptr[4];
+    int CAR_count = 2;
+    QLabel *CAR_ptr[2];
 
     bool now_pause = true;
 
@@ -35,9 +35,9 @@ public slots:
     void raceover();
 
 private:
-    float CAR_ang[4];
-    QPixmap CAR_img[4];
-    QTransform CAR_rot[4];
+    float CAR_ang[2];
+    QPixmap CAR_img[2];
+    QTransform CAR_rot[2];
 
     Ui::MainWindow *ui;
 };

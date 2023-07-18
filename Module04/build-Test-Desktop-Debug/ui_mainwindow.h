@@ -58,25 +58,25 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         CAR0 = new QLabel(centralwidget);
         CAR0->setObjectName(QString::fromUtf8("CAR0"));
-        CAR0->setGeometry(QRect(5, 580, 40, 70));
+        CAR0->setGeometry(QRect(20, 580, 40, 70));
         CAR0->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : blue;"));
         CAR1 = new QLabel(centralwidget);
         CAR1->setObjectName(QString::fromUtf8("CAR1"));
-        CAR1->setGeometry(QRect(25, 580, 40, 70));
+        CAR1->setGeometry(QRect(50, 580, 40, 70));
         CAR1->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : red;"));
         CAR2 = new QLabel(centralwidget);
         CAR2->setObjectName(QString::fromUtf8("CAR2"));
-        CAR2->setGeometry(QRect(51, 580, 40, 70));
+        CAR2->setGeometry(QRect(100, 730, 40, 70));
         CAR2->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : green;"));
         CAR3 = new QLabel(centralwidget);
         CAR3->setObjectName(QString::fromUtf8("CAR3"));
-        CAR3->setGeometry(QRect(74, 580, 40, 70));
+        CAR3->setGeometry(QRect(190, 740, 40, 70));
         CAR3->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : yellow;"));

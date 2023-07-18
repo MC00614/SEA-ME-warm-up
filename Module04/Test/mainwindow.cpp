@@ -20,14 +20,14 @@ MainWindow::MainWindow(QWidget *parent)
 //    Load Car Image
     CAR_img[0].load(":/images/images/car0_.png");
     CAR_img[1].load(":/images/images/car1_.png");
-    CAR_img[2].load(":/images/images/car2_.png");
-    CAR_img[3].load(":/images/images/car3_.png");
+//    CAR_img[2].load(":/images/images/car2_.png");
+//    CAR_img[3].load(":/images/images/car3_.png");
 
 //    Set Pointer
     CAR_ptr[0] = ui->CAR0;
     CAR_ptr[1] = ui->CAR1;
-    CAR_ptr[2] = ui->CAR2;
-    CAR_ptr[3] = ui->CAR3;
+//    CAR_ptr[2] = ui->CAR2;
+//    CAR_ptr[3] = ui->CAR3;
 
 //    Initialize Car's position by Label geometry
     for (int i=0; i<CAR_count; i++)
