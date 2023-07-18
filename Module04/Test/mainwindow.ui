@@ -25,7 +25,7 @@ border: 0px
    <widget class="QLabel" name="CAR0">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>25</x>
       <y>1190</y>
       <width>40</width>
       <height>70</height>
@@ -43,7 +43,7 @@ color : blue;</string>
    <widget class="QLabel" name="CAR1">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>65</x>
       <y>1190</y>
       <width>40</width>
       <height>70</height>
@@ -56,6 +56,42 @@ color : red;</string>
     </property>
     <property name="text">
      <string>CAR1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="CAR2">
+    <property name="geometry">
+     <rect>
+      <x>105</x>
+      <y>1190</y>
+      <width>40</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url();
+background-color : none;
+color : green;</string>
+    </property>
+    <property name="text">
+     <string>CAR2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="CAR3">
+    <property name="geometry">
+     <rect>
+      <x>145</x>
+      <y>1190</y>
+      <width>40</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url();
+background-color : none;
+color : yellow;</string>
+    </property>
+    <property name="text">
+     <string>CAR3</string>
     </property>
    </widget>
   </widget>
@@ -73,6 +109,9 @@ color : red;</string>
      <string>Setting</string>
     </property>
     <addaction name="actionSTART"/>
+    <addaction name="actionPAUSE"/>
+    <addaction name="actionRESUME"/>
+    <addaction name="actionEXIT"/>
    </widget>
    <addaction name="menuSetting"/>
   </widget>
@@ -80,6 +119,21 @@ color : red;</string>
   <action name="actionSTART">
    <property name="text">
     <string>START</string>
+   </property>
+  </action>
+  <action name="actionPAUSE">
+   <property name="text">
+    <string>PAUSE</string>
+   </property>
+  </action>
+  <action name="actionRESUME">
+   <property name="text">
+    <string>RESUME</string>
+   </property>
+  </action>
+  <action name="actionEXIT">
+   <property name="text">
+    <string>EXIT</string>
    </property>
   </action>
  </widget>

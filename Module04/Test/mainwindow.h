@@ -21,17 +21,22 @@ public:
     game test_game;
     virtual void keyPressEvent(QKeyEvent *event) override;
     virtual void keyReleaseEvent(QKeyEvent *event) override;
-    int CAR_count = 2;
-    QLabel *CAR_ptr[2];
+    int CAR_count = 4;
+    QLabel *CAR_ptr[4];
+
+    bool now_pause = true;
 
 public slots:
     void gui_update();
     void start();
+    void pause();
+    void resume();
+    void exit();
 
 private:
-    float CAR_ang[2];
-    QPixmap CAR_img[2];
-    QTransform CAR_rot[2];
+    float CAR_ang[4];
+    QPixmap CAR_img[4];
+    QTransform CAR_rot[4];
 
     Ui::MainWindow *ui;
 };

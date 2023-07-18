@@ -22,7 +22,7 @@ void CarThread::run()
 {
 //    mutex.lock();
     car->move();
-    qDebug()<<car->getX();
+//    qDebug()<<car->getX();
 //    mutex.unlock();
     msleep(1000.0f/60.0f);
     update();
