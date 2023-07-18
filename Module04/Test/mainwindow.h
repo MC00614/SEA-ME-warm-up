@@ -32,6 +32,7 @@ public slots:
     void pause();
     void resume();
     void exit();
+    void raceover();
 
 private:
     float CAR_ang[4];

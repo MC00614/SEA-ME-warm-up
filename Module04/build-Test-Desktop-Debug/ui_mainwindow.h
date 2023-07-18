@@ -41,8 +41,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1152, 1484);
-        MainWindow->setStyleSheet(QString::fromUtf8("background-image: url(:/images/images/bg.png);\n"
+        MainWindow->resize(576, 800);
+        MainWindow->setStyleSheet(QString::fromUtf8("background-image: url(:/images/images/bg2.png);\n"
 "border: 0px \n"
 ""));
         MainWindow->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -58,32 +58,32 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         CAR0 = new QLabel(centralwidget);
         CAR0->setObjectName(QString::fromUtf8("CAR0"));
-        CAR0->setGeometry(QRect(25, 1190, 40, 70));
+        CAR0->setGeometry(QRect(5, 580, 40, 70));
         CAR0->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : blue;"));
         CAR1 = new QLabel(centralwidget);
         CAR1->setObjectName(QString::fromUtf8("CAR1"));
-        CAR1->setGeometry(QRect(65, 1190, 40, 70));
+        CAR1->setGeometry(QRect(25, 580, 40, 70));
         CAR1->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : red;"));
         CAR2 = new QLabel(centralwidget);
         CAR2->setObjectName(QString::fromUtf8("CAR2"));
-        CAR2->setGeometry(QRect(105, 1190, 40, 70));
+        CAR2->setGeometry(QRect(51, 580, 40, 70));
         CAR2->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : green;"));
         CAR3 = new QLabel(centralwidget);
         CAR3->setObjectName(QString::fromUtf8("CAR3"));
-        CAR3->setGeometry(QRect(145, 1190, 40, 70));
+        CAR3->setGeometry(QRect(74, 580, 40, 70));
         CAR3->setStyleSheet(QString::fromUtf8("background-image: url();\n"
 "background-color : none;\n"
 "color : yellow;"));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1152, 22));
+        menubar->setGeometry(QRect(0, 0, 576, 22));
         menuSetting = new QMenu(menubar);
         menuSetting->setObjectName(QString::fromUtf8("menuSetting"));
         MainWindow->setMenuBar(menubar);

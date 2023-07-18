@@ -418,12 +418,18 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_Resources.cpp
 qrc_Resources.cpp: ../Test/Resources.qrc \
 		/usr/lib/qt5/bin/rcc \
+		../Test/images/car0_.png \
 		../Test/images/car0.png \
+		../Test/images/bg2.png \
 		../Test/images/car4.png \
+		../Test/images/car3_.png \
 		../Test/images/car3.png \
+		../Test/images/car2_.png \
 		../Test/images/car2.png \
+		../Test/images/car1_.png \
 		../Test/images/bg.png \
-		../Test/images/car1.png
+		../Test/images/car1.png \
+		../Test/images/car4_.png
 	/usr/lib/qt5/bin/rcc -name Resources ../Test/Resources.qrc -o qrc_Resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

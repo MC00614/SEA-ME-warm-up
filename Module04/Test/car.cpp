@@ -9,6 +9,7 @@ Car::Car()
     angle = 90;
     speed = 0;
     max_speed = 5;
+    run_count = 1;
 }
 
 Car::~Car(){}
@@ -51,6 +52,79 @@ void Car::move()
 //    Calculate location(x,y)
     x += speed*cos(angle*rad2deg);
     y -= speed*sin(angle*rad2deg);
+    pass();
+    collisionCheck();
+}
+
+void Car::collisionCheck()
+{
+
+//    int out_border[14] = {0,680, 0,20, 330,20, 330,155, 540,155, 540,680, 0,680};
+//    int in_border[14] = {95,620, 95,75, 230,75, 230,290, 430,290, 430,620, 95,620};
+
+//    Same x
+    int dis_out = 0;
+    int dis_in = 0;
+    int threshold = 5;
+    float speedfactor = 0.9;
+
+    for (int i=0; i<12; i+=4)
+    {
+        dis_out = out_border[i]-x;
+        if ((-threshold<dis_out) && (dis_out<threshold))
+        {
+            if (((out_border[i+1]-y)*(out_border[i+3]-y))<0)
+            {
+                x -= speed*cos(angle*rad2deg);
+                y += speed*sin(angle*rad2deg);
+                speed = speed*speedfactor;
+                collisionCheck();
+                return;
+            }
+        }
+        dis_in = in_border[i]-x;
+        if ((-threshold<dis_in) && (dis_in<threshold))
+        {
+            if (((in_border[i+1]-y)*(in_border[i+3]-y))<0)
+            {
+                x -= speed*cos(angle*rad2deg);
+                y += speed*sin(angle*rad2deg);
+                speed = speed*speedfactor;
+                collisionCheck();
+                return;
+            }
+        }
+    }
+
+//    Same y
+    for (int i=3; i<14; i+=4)
+    {
+        dis_out = out_border[i]-y;
+        if ((-threshold<dis_out) && (dis_out<threshold))
+        {
+            if (((out_border[i+1]-x)*(out_border[i-1]-x))<0)
+            {
+                x -= speed*cos(angle*rad2deg);
+                y += speed*sin(angle*rad2deg);
+                speed = speed*speedfactor;
+                collisionCheck();
+                return;
+            }
+        }
+        dis_in = in_border[i]-y;
+        if ((-threshold<dis_in) && (dis_in<threshold))
+        {
+            if (((in_border[i+1]-x)*(in_border[i-1]-x))<0)
+            {
+                x -= speed*cos(angle*rad2deg);
+                y += speed*sin(angle*rad2deg);
+                speed = speed*speedfactor;
+                collisionCheck();
+                return;
+            }
+        }
+    }
+    return;
 }
 
 void Car::change_Angle(float addition_angle)
@@ -112,4 +186,14 @@ float Car::getX()
 float Car::getY()
 {
     return y;
+}
+
+void Car::pass()
+{
+    if(620<y && y<680) {
+        if((95 - x-speed*cos(angle*rad2deg)) * (95 - x) < 0) {
+            run_count -= 1;
+        }
+    }
+    if (!run_count) emit racefinish();
 }

@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1152</width>
-    <height>1484</height>
+    <width>576</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/images/images/bg.png);
+   <string notr="true">background-image: url(:/images/images/bg2.png);
 border: 0px 
 </string>
   </property>
@@ -25,8 +25,8 @@ border: 0px
    <widget class="QLabel" name="CAR0">
     <property name="geometry">
      <rect>
-      <x>25</x>
-      <y>1190</y>
+      <x>5</x>
+      <y>580</y>
       <width>40</width>
       <height>70</height>
      </rect>
@@ -43,8 +43,8 @@ color : blue;</string>
    <widget class="QLabel" name="CAR1">
     <property name="geometry">
      <rect>
-      <x>65</x>
-      <y>1190</y>
+      <x>25</x>
+      <y>580</y>
       <width>40</width>
       <height>70</height>
      </rect>
@@ -61,8 +61,8 @@ color : red;</string>
    <widget class="QLabel" name="CAR2">
     <property name="geometry">
      <rect>
-      <x>105</x>
-      <y>1190</y>
+      <x>51</x>
+      <y>580</y>
       <width>40</width>
       <height>70</height>
      </rect>
@@ -79,8 +79,8 @@ color : green;</string>
    <widget class="QLabel" name="CAR3">
     <property name="geometry">
      <rect>
-      <x>145</x>
-      <y>1190</y>
+      <x>74</x>
+      <y>580</y>
       <width>40</width>
       <height>70</height>
      </rect>
@@ -100,7 +100,7 @@ color : yellow;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1152</width>
+     <width>576</width>
      <height>22</height>
     </rect>
    </property>

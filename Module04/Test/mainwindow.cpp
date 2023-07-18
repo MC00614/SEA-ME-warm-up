@@ -3,6 +3,7 @@
 
 #include <QKeyEvent>
 #include <QDebug>
+#include <QtWidgets>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionEXIT->setEnabled(true);
 
 //    Load Car Image
-    CAR_img[0].load(":/images/images/car0.png");
-    CAR_img[1].load(":/images/images/car1.png");
-    CAR_img[2].load(":/images/images/car2.png");
-    CAR_img[3].load(":/images/images/car3.png");
+    CAR_img[0].load(":/images/images/car0_.png");
+    CAR_img[1].load(":/images/images/car1_.png");
+    CAR_img[2].load(":/images/images/car2_.png");
+    CAR_img[3].load(":/images/images/car3_.png");
 
 //    Set Pointer
     CAR_ptr[0] = ui->CAR0;
@@ -37,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
         test_game.carList[i]->setX(CAR_ptr[i]->geometry().x());
         test_game.carList[i]->setY(CAR_ptr[i]->geometry().y());
         CAR_ptr[i]->setGeometry(test_game.carList[i]->getX(),test_game.carList[i]->getY(),80,80);
+        connect(test_game.carList[i], SIGNAL(racefinish()), this, SLOT(raceover()));
     }
 
 //    Update By Qtimer(60fps)
@@ -82,6 +84,33 @@ void MainWindow::resume()
 
 void MainWindow::exit()
 {
+    close();
+}
+
+void MainWindow::raceover()
+{
+    now_pause = true;
+    ui->actionPAUSE->setEnabled(false);
+    ui->actionRESUME->setEnabled(true);
+    test_game.pauseRace();
+
+    int WIN;
+    int len=999;
+    for (int i=0; i<CAR_count; i++)
+    {
+        int X = CAR_ptr[i]->geometry().x();
+        int Y = CAR_ptr[i]->geometry().y();
+        int nowlen = (95-X)*(95-X)+(650-Y)*(650-Y);
+        if (nowlen<len)
+        {
+            nowlen = len;
+            WIN = i;
+        }
+    }
+    QString color[4] = {"Black","Red","Blue","Yellow"};
+    QMessageBox::information(this,
+            tr("Race Finish"),
+            tr("%1 is Winner").arg(color[WIN]));
     close();
 }
 
